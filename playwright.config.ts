@@ -50,17 +50,7 @@ export default defineConfig({
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
-    {
-      name: 'API Testing',
-      testMatch: 'APITesting/**/*', // Esto es para configurar un proyecto específico para pruebas de API en Playwright, donde solo se ejecutarán los tests que coincidan con el patrón "APITesting/**/*.spec.ts". Al establecer "testMatch" en este patrón dentro de la configuración del proyecto, Playwright solo ejecutará los tests que estén definidos en archivos con la extensión ".spec.ts" dentro de la carpeta "APITesting" y sus subcarpetas. Esto permite organizar y ejecutar específicamente los tests relacionados con la API, lo que puede ser útil para mantener una estructura clara y separada para las pruebas de API dentro del proyecto de Playwright
-      use: {
-        baseURL: 'https://api.github.com', // Esto es para configurar una URL base específica para las pruebas de API en Playwright, lo que permite utilizar rutas relativas en lugar de URLs completas en las acciones de navegación dentro de los tests de API. Al establecer "baseURL" en "https://api.github.com", se puede utilizar rutas relativas en las acciones de navegación dentro de los tests de API, como "page.goto('/users/octocat')", lo que hará que Playwright navegue a "https://api.github.com/users/octocat". Esto puede mejorar la legibilidad y la mantenibilidad de los tests de API al evitar la repetición de la URL completa en cada acción de navegación, y también facilita la configuración de diferentes entornos o endpoints para las pruebas de API sin tener que modificar cada test individualmente
-        extraHTTPHeaders: {
-          'Accept': 'application/vnd.github.v3+json', // Esto es para configurar encabezados HTTP adicionales específicos para las pruebas de API en Playwright, lo que permite incluir información adicional en las solicitudes HTTP realizadas durante los tests de API. Al establecer "extraHTTPHeaders" con un encabezado de autorización, como "Authorization: application/vnd.github.v3+json", se está indicando que todas las solicitudes HTTP realizadas durante los tests de API incluirán este encabezado específico, lo que puede ser necesario para autenticar o autorizar las solicitudes a la API de GitHub. Esto facilita la configuración de los encabezados necesarios para interactuar con la API y garantiza que las pruebas de API se ejecuten correctamente con la autenticación adecuada
-          'Authorization': `token ${process.env.API_TOKEN}`, // Esto es para configurar un encabezado de autorización específico para las pruebas de API en Playwright, utilizando un token de autenticación almacenado en una variable de entorno. Al establecer "extraHTTPHeaders" con un encabezado de autorización que incluye un token, como "Authorization: token ${process.env.GITHUB_TOKEN}", se está indicando que todas las solicitudes HTTP realizadas durante los tests de API incluirán este encabezado de autorización con el token proporcionado. Esto es útil para autenticar las solicitudes a la API de GitHub utilizando un token de acceso personal (PAT) almacenado en una variable de entorno, lo que permite mantener la seguridad y la confidencialidad del token mientras se ejecutan las pruebas de API
-        }, // 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
-      }
-    },
+    
 
     /* Test against mobile viewports. */
     // {
