@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { SandboxPage } from "./Pages/SandboxPage";
 
 (async () => {
 test.describe('Navegación a SandBox', () => {
@@ -49,8 +50,10 @@ test.describe('Navegación a SandBox', () => {
     // Validar el funcionamiento de un CheckBox
     test('Dar click a un CheckBox', async ({ page }) => {
         await test.step('Seleccionar una comida', async () => {
-            await page.getByLabel('Pasta 🍝').check(); // Seleccionar el checkbox "Pasta 🍝" utilizando su etiqueta asociada, lo que simula la acción de un usuario marcando la casilla
-            await expect(page.getByLabel('Pasta 🍝'), 'El check si estaba seleccionando').toBeChecked(); // Verificar que el checkbox "Pasta 🍝" esté seleccionado después de marcarlo, lo que confirma que la acción de seleccionar el checkbox fue exitosa. Si el checkbox no está seleccionado, se mostrará un mensaje de error personalizado indicando que el check no estaba seleccionando
+            //await page.getByLabel('Pasta 🍝').check(); // Seleccionar el checkbox "Pasta 🍝" utilizando su etiqueta asociada, lo que simula la acción de un usuario marcando la casilla
+            const sandboxPage = new SandboxPage(page); // Crear una instancia de la clase SandboxPage, pasando el objeto "page" como argumento para que la clase pueda interactuar con la página web
+            await sandboxPage.clickPastaCheckBox(); // Llamar al método "clickPastaCheckBox" de la instancia de SandboxPage para hacer clic en el checkbox "Pasta 🍝", lo que abstrae la lógica de interacción con el checkbox dentro de la clase y mejora la legibilidad del test
+            await expect(sandboxPage.PastaCheckBox, 'El check si estaba seleccionando').toBeChecked(); // Verificar que el checkbox "Pasta 🍝" esté seleccionado después de marcarlo, lo que confirma que la acción de seleccionar el checkbox fue exitosa. Si el checkbox no está seleccionado, se mostrará un mensaje de error personalizado indicando que el check no estaba seleccionando
         })
         
         await test.step('Deseleccionar una comida', async () => {

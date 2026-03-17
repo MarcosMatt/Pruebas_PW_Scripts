@@ -1,4 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
+import * as dotenv from 'dotenv';
+import path from 'path';
+
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 /**
  * Read environment variables from file.
@@ -30,6 +34,7 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry', // Esto es para configurar la recopilación de trazas (traces) en caso de que un test falle y se realicen reintentos. Al establecer "trace" en "on-first-retry", Playwright recopilará una traza detallada del test solo en el primer intento de reintento después de que un test falle. Esto puede ser útil para diagnosticar problemas intermitentes o inestables en los tests, ya que proporciona información detallada sobre lo que sucedió durante la ejecución del test que falló, lo que puede ayudar a identificar la causa raíz del problema. Al configurar esto, se evita la recopilación de trazas innecesarias en casos donde los tests son estables y no requieren reintentos, lo que puede mejorar el rendimiento general de la ejecución de los tests
+    //video: 'retain-on-failure', // Esto es para configurar la grabación de videos durante la ejecución de los tests, pero solo en caso de que un test falle. Al establecer "video" en "retain-on-failure", Playwright grabará un video de la ejecución del test solo si el test falla, lo que puede ser útil para diagnosticar problemas intermitentes o inestables en los tests, ya que proporciona una grabación visual de lo que sucedió durante la ejecución del test que falló. Esto puede ayudar a identificar la causa raíz del problema al revisar el video y observar el comportamiento del test en el momento del fallo. Al configurar esto, se evita la grabación de videos innecesarios en casos donde los tests son estables y no requieren grabación, lo que puede mejorar el rendimiento general de la ejecución de los tests
   },
 
   /* Configure projects for major browsers */
@@ -50,8 +55,11 @@ export default defineConfig({
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
-    
-
+    {
+      name: 'IPhone',
+      testMatch: 'test-2.spec.ts',
+      use: { ...devices['iPhone 12']},
+    },
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
