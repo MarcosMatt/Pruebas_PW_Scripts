@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Ejecutar las pruebas') {
             steps {
-                sh 'npx playwright test test-2.spect.ts'
+                sh 'npx playwright test test-2.spec.ts'
             }
         }
     }
