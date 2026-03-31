@@ -21,7 +21,7 @@ pipeline {
 
     post {
         always {
-            publishHTLM([
+            publishHTML([
                 allowMissing: false,
                 reportDir: 'playwright-report',
                 reportFiles: 'index.html',
