@@ -1,0 +1,40 @@
+pipeline {
+    agent {
+        docker {
+            image 'mcr.microsoft.com/playwright:v1.58.2-jammy'
+            args '--ipc=host'
+        }
+    }
+
+    stages {
+        stage('Instalar dependencias') {
+            steps {
+                sh 'npm install'
+            }
+        }
+        stage('Ejecutar las pruebas') {
+            steps {
+                sh 'npx playwright test'
+            }
+        }
+    }
+
+    post {
+        always {
+            publishHTLM([
+                allowMissing: false,
+                reportDir: 'playwright-report',
+                reportFiles: 'index.html',
+                reportName: 'Playwright Report'
+            ])
+        }
+
+        success {
+            echo 'Pruebas Exitosas ✅'
+        }
+
+        failure {
+            echo 'Pruebas Fallidas ❌'
+        }
+    }
+}
