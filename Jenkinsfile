@@ -13,16 +13,14 @@ pipeline {
         stage('Ejecutar Pruebas en Playwright') {
             steps {
                 script {
-                    // 1. Levantamos el contenedor oficial de Playwright
-                    // 2. Le montamos tu código descargado dentro de la carpeta /app del contenedor
-                    // 3. Ejecutamos las pruebas
-                    sh '''
+                    // Usamos "${WORKSPACE}" para asegurar que Docker encuentre la carpeta correcta
+                    sh """
                     docker run --rm \
-                      -v $(pwd):/app \
+                      -v "${WORKSPACE}":/app \
                       -w /app \
                       mcr.microsoft.com/playwright:v1.58.2-jammy \
                       /bin/sh -c "npm install && npx playwright test test-2.spec.ts"
-                    '''
+                    """
                 }
             }
         }
