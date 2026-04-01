@@ -16,8 +16,8 @@ pipeline {
                     // Usamos "${WORKSPACE}" para asegurar que Docker encuentre la carpeta correcta
                     sh """
                     docker run --rm \
-                      -v "${WORKSPACE}":/app \
-                      -w /app \
+                      -v JenkinsTests:/var/jenkins_home \
+                      -w /var/jenkins_home/workspace/Playwright-integration-Github \
                       mcr.microsoft.com/playwright:v1.58.2-jammy \
                       /bin/sh -c "npm install && npx playwright test test-2.spec.ts"
                     """
