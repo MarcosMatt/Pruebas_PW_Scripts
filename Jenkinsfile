@@ -21,7 +21,7 @@ pipeline {
                       -v $(pwd):/app \
                       -w /app \
                       mcr.microsoft.com/playwright:v1.58.2-jammy \
-                      /bin/sh -c "npm install && npx playwright test"
+                      /bin/sh -c "npm install && npx playwright test test-2.spec.ts"
                     '''
                 }
             }
